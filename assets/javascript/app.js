@@ -12,6 +12,8 @@ $(document).ready(function() {
 
 	function searchForGiphs(term) {
 		term = term.split(" ").join("%20");
+		console.log($("input[type=checkbox]").attr("checked"));
+
 		var searchURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=" + term + "&limit=10&offset=0&rating=PG&lang=en";
 
 		$.ajax({
@@ -24,19 +26,22 @@ $(document).ready(function() {
 				var urlStill = response.data[i].images.original_still.url;
 
 				var beginDiv = $("<div class='gifBlock'>");
-				var endDiv = $("</div>");
-				var still = "<img class='stillImage' style='display: block' src='" + urlStill + "'>";
-				var img = "<img class='gif' src='" + urlThumb + "'>";
+				var img = "<img class='gif' data-moving='" + urlThumb + "' src='" + urlStill + "'>";
 				var rate = "<p>Rating: " + rating.toUpperCase() + "</p>";
-				beginDiv.append(rate,img,endDiv);
-				beginDiv.data("promise", $.Deferred());
-				var elem = $
+				beginDiv.append(rate,img);
 				$(".giphs").append(beginDiv);
 			}
 		});
 		
 		
 	};
+
+	$(".giphs").on("click", ".gif", function() {
+		var temp = $(this).attr("data-moving");
+		var current = $(this).attr("src");
+		$(this).attr("src", temp);
+		$(this).attr("data-moving", current);
+	})
 
 	$("#add").on("click", function(event) {
 		event.preventDefault();
@@ -47,7 +52,6 @@ $(document).ready(function() {
 			$(".options").empty();
 			makeButtons();
 		}
-		//$("form").trigger("reset"); //clears form, currenlty breaks app
 	});
 
 	$(".options").on("click",".searchTerms", function() {
