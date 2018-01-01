@@ -2,10 +2,13 @@ body {
 	padding: 30px;
 }
 p {
-	padding-bottom: 8px;
+	padding-top: 5px;
 }
-#input {
+#input, #add, #filter {
 	margin: 5px;
+}
+#inputForm {
+	margin-top: 200px;
 }
 .searchTerms {
 	margin-right: 2px;
@@ -25,8 +28,11 @@ p {
 .gifBlock {
 	float: left;
 	margin: 5px;
+	padding-top: 5px;
+	min-height: 250px;
+	max-height: 300px;
 }
 img {
 	max-width: 200px;
-	max-height: 200px;
+	max-height: 275px;	
 }
